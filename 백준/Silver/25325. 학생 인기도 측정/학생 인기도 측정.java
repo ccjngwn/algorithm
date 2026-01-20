@@ -3,9 +3,6 @@ import java.lang.*;
 import java.io.*;
 
 /**
-1. 새의 수 N 입력받기
-2. 새의 수가 i보다 작다면 i = 1
-3. i = 1부터 반복문 돌면서 새의 수에서 i만큼 -하기 + sec 1만큼 증가시키기
 */
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -31,11 +28,13 @@ public class Main {
 
         List<String> keySet = new ArrayList<>(hm.keySet());
 
+        // sort는 음수를 반환하면 o1을 앞에 배치, 양수를 반환하면 o2를 앞에 배치
         keySet.sort((o1, o2) -> {
-            if (hm.get(o1) - hm.get(o2) == 0) 
-                return o1.compareTo(o2);
+            if (hm.get(o1) - hm.get(o2) == 0) // o1과 o2의 값이 같다면
+                return o1.compareTo(o2); // 사전순 정렬
+            // compareTo는 o1이 o2보다 작으면 음수, 같으면 0, o1이 크면 양수를 반환 -> 그거에 맞춰서 순서 조정
             else
-                return hm.get(o2) - hm.get(o1);
+                return hm.get(o2) - hm.get(o1); // 음수면 o1이 앞에, 양수면 o1이 뒤에
             });
 
         for (String key : keySet) {
