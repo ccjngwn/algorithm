@@ -4,7 +4,7 @@ import java.io.*;
 
 /*
 입력받아서 2차원 배열 만들기
-2차원 배열의 누적합 계산하기 - prefix_sum[x, y] = arr[x - 1, y - 1] + prefix_sum[x - 1, y] + prefix_sum[x, y - 1] - prefix_sum[x - 1, y - 1]
+2차원 배열의 누적합 계산하기 - prefix_sum[x, y] = 입력값 + prefix_sum[x - 1, y] + prefix_sum[x, y - 1] - prefix_sum[x - 1, y - 1]
 m번 반복 돌면서 구간합 계산하기 - prefix_sum[x2, y2] - prefix_sum[x1 - 1, y2] - prefix_sum[x2, y1 - 1] + prefix_sum[x1 - 1, y1 - 1]
 */
 class Main {
@@ -14,18 +14,11 @@ class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        int[][] arr = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < n; j++) {
-                arr[i][j] = Integer.parseInt(st.nextToken());
-            }
-        }
-
         int[][] prefix_sum = new int[n + 1][n + 1];
         for (int i = 1; i < n + 1; i++) {
+            st = new StringTokenizer(br.readLine());
             for (int j = 1; j < n + 1; j++) {
-                prefix_sum[i][j] = arr[i - 1][j - 1] + prefix_sum[i - 1][j] + prefix_sum[i][j - 1] - prefix_sum[i - 1][j - 1];
+                prefix_sum[i][j] = Integer.parseInt(st.nextToken()) + prefix_sum[i - 1][j] + prefix_sum[i][j - 1] - prefix_sum[i - 1][j - 1];
             }
         }
 
