@@ -2,33 +2,38 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Main {
+class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
 
-        int N = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < N; i++) {
-            Deque<Character> de = new ArrayDeque<>();
-            String str = br.readLine();
+        Deque<Character> deq = new ArrayDeque<>();
+        for (int i = 0; i < t; i++) {
             boolean flag = true;
+            String str = br.readLine();
+            
             for (int j = 0; j < str.length(); j++) {
-                if (str.charAt(j) == '(') {
-                    de.push(str.charAt(j));
-                } else if (str.charAt(j) == ')') {
-                    if (de.isEmpty()) {
+                char c = str.charAt(j);
+                if (c == '(') deq.addLast(c);
+                else if (c == ')') {
+                    if (deq.isEmpty()) {
                         flag = false;
                         break;
-                    } else {
-                        de.pop();
+                    }
+                    
+                    char last = deq.pollLast();
+                    if (last != '(') {
+                        flag = false;
+                        break;
                     }
                 }
             }
 
-            if (flag == true && !de.isEmpty()) flag = false;
-
-            if (flag == true) System.out.println("YES");
-            else if (flag == false) System.out.println("NO");
+            if (!deq.isEmpty()) flag = false;
+            
+            if (flag) System.out.println("YES");
+            else System.out.println("NO");
+            deq.clear();
         }
     }
 }
