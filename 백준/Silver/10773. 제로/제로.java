@@ -2,24 +2,31 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 
-public class Main {
+// The main method must be in a class named "Main".
+class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int N = Integer.parseInt(br.readLine());
+        int k = Integer.parseInt(br.readLine());
 
         Deque<Integer> deq = new ArrayDeque<>();
-        for (int i = 0; i < N; i++) {
-            int a = Integer.parseInt(br.readLine());
-            if (a == 0) deq.pop();
-            else deq.push(a);
+
+        for (int i = 0; i < k; i++) {
+            int in = Integer.parseInt(br.readLine());
+            if (in != 0) {
+                deq.addFirst(in);
+            } else {
+                if (!deq.isEmpty()) {
+                    deq.removeFirst();
+                }
+            }
         }
 
-        int sum = 0;
-        for (int a : deq) {
-            sum += a;
+        int answer = 0;
+        Iterator<Integer> iter = deq.iterator();
+        while (iter.hasNext()) {
+            answer += iter.next();
         }
 
-        System.out.println(sum);
+        System.out.println(answer);
     }
 }
