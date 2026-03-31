@@ -9,27 +9,30 @@ class Main {
         StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(br.readLine());
-        Deque<Integer> deq = new ArrayDeque<>();
+        int[] target = new int[n];
+        Deque<Integer> nums = new ArrayDeque<>();
         for (int i = 0; i < n; i++) {
-            deq.addLast(Integer.parseInt(br.readLine()));
+            target[i] = Integer.parseInt(br.readLine());
         }
 
-        Deque<Integer> nums = new ArrayDeque<>();
-        for (int i = 1; i <= n; i++) {
-            nums.addLast(i);
-            sb.append("+").append("\n");
-            
-            while (!deq.isEmpty() && !nums.isEmpty() && (int)deq.peekFirst() == (int)nums.peekLast()) {
-                sb.append("-").append("\n");
-                deq.removeFirst();
+        int currentNum = 1;
+        for (int i = 0; i < n; i++) {
+            int targetNum = target[i];
+
+            while (currentNum <= targetNum) {
+                nums.addLast(currentNum++);
+                sb.append("+").append("\n");
+            }
+
+            if (!nums.isEmpty() && (int)nums.peekLast() == targetNum) {
                 nums.removeLast();
+                sb.append("-").append("\n");
+            } else {
+                System.out.println("NO");
+                return;
             }
         }
 
-        if (nums.isEmpty()) {
-            System.out.print(sb);
-        } else {
-            System.out.println("NO");
-        }
+        System.out.print(sb);
     }
 }
